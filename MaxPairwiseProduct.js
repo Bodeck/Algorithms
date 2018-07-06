@@ -17,7 +17,7 @@ function readLine(line) {
             n = parseInt(line, 10)
         } else if (lineCount === 2) {
             intArr = line.split(" ").map(Number);
-            console.log('output: ' + getMax(intArr, n));
+            console.log(getMaxFast(n,intArr));
             process.exit();
         }
     }
