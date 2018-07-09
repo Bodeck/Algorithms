@@ -1,7 +1,5 @@
-
-
 var readline = require('readline');
-
+var bignum = require('bignumber.js');
 process.stdin.setEncoding('utf8');
 var rl = readline.createInterface({
     input: process.stdin,
@@ -14,7 +12,7 @@ function readLine(line) {
     if (line !== "\n") {
         var n = parseInt(line.split(" ")[0], 10);
         var m = parseInt(line.split(" ")[1], 10);
-        console.log(LCMNaive(n, m));
+        console.log(LCMFast(n, m));
         process.exit();
     }
 }
@@ -38,17 +36,20 @@ function EuclidesAlgorithm(n, m) {
     return n
 }
 
-function LCMFast(n,m) {
-    return n*m/EuclidesAlgorithm(n,m)
+function LCMFast(n, m) {
+    x = new bignum(n);
+    y = new bignum(m);
+    var z = x.times(y);
+    var GCM = new bignum(EuclidesAlgorithm(x, y));
+    z = z.div(GCM);
+    return z.toString()
 }
 
 function test(n, m) {
     var strTime = new Date().getTime();
-    //console.log(LCMNaive(n, m));
-    console.log(LCMFast(n,m));
+    // console.log(LCMNaive(n, m));
+    console.log(LCMFast(n, m));
     var duration = new Date().getTime() - strTime;
     console.log(duration);
 }
-
-
 test(226553150, 1023473145);
